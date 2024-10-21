@@ -1,146 +1,98 @@
-"use client"
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Facebook, Twitter, Instagram, Youtube, ArrowRight } from 'lucide-react';
+'use client'
+
+import { useState } from 'react'
+import { Facebook, Twitter, Instagram, Linkedin, Github, ArrowRight } from 'lucide-react'
 
 const FooterLink = ({ href, children }) => (
-  <motion.a
+  <a
     href={href}
-    className="text-gray-400 hover:text-white transition-colors duration-300"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
+    className="text-gray-600 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 transition-all duration-300 text-sm"
   >
     {children}
-  </motion.a>
-);
+  </a>
+)
 
-const SocialIcon = ({ Icon }) => (
-  <motion.a
-    href="#"
-    className="text-gray-400 hover:text-white transition-colors duration-300"
-    whileHover={{ scale: 1.2, rotate: 5 }}
-    whileTap={{ scale: 0.9 }}
+const SocialButton = ({ href, icon: Icon }) => (
+  <a
+    href={href}
+    className="text-gray-600 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 transition-all duration-300 transform hover:scale-110"
+    target="_blank"
+    rel="noopener noreferrer"
   >
     <Icon size={20} />
-  </motion.a>
-);
+  </a>
+)
 
-const EnhancedFooter = () => {
-  const [email, setEmail] = useState('');
+export default function Footer() {
+  const [email, setEmail] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle newsletter subscription
-    console.log('Subscribed:', email);
-    setEmail('');
-  };
+    e.preventDefault()
+    console.log('Signing up for newsletter with email:', email)
+    setEmail('')
+  }
 
   return (
-    <footer className="bg-gray-900 text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-2xl font-bold ">aktive</h2>
-            <p className="text-gray-400">Empowering your active lifestyle with premium gear and apparel.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h3 className="text-lg font-semibold mb-4">HELP</h3>
+    <footer className="bg-white text-gray-800 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">About Us</h3>
+            <p className="text-sm text-gray-600">
+              We are a company dedicated to providing innovative solutions for our customers.
+              Our mission is to make technology accessible and user-friendly for everyone.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2">
-              {['FAQs', 'Shipping', 'Returns', 'Size Guides', 'Materials & Care', 'Contact Us'].map((item) => (
-                <li key={item}>
-                  <FooterLink href="#">{item}</FooterLink>
-                </li>
-              ))}
+              <li><FooterLink href="/">Home</FooterLink></li>
+              <li><FooterLink href="/products">Products</FooterLink></li>
+              <li><FooterLink href="/about">About</FooterLink></li>
+              <li><FooterLink href="/contact">Contact</FooterLink></li>
             </ul>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3 className="text-lg font-semibold mb-4">ABOUT US</h3>
-            <ul className="space-y-2">
-              {['About Us', 'The Rewards Stock', 'Sustainability', 'Careers', 'Blog'].map((item) => (
-                <li key={item}>
-                  <FooterLink href="#">{item}</FooterLink>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <h3 className="text-lg font-semibold mb-4">NEWSLETTER</h3>
-            <p className="text-gray-400 mb-4">Subscribe to be aware of our regular promotions & exclusive offers</p>
-            <form onSubmit={handleSubmit} className="flex">
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Contact Us</h3>
+            <p className="text-sm text-gray-600">
+              123 Tech Street<br />
+              San Francisco, CA 94107<br />
+              Email: info@example.com<br />
+              Phone: (123) 456-7890
+            </p>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Newsletter</h3>
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
               <input
                 type="email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email..."
-                className="bg-gray-800 text-white px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow"
+                className="bg-gray-100 text-gray-800 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300"
                 required
               />
-              <motion.button
+              <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-r-md transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-md hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
               >
-                <ArrowRight size={20} />
-              </motion.button>
+                Subscribe
+                <ArrowRight size={16} className="ml-2" />
+              </button>
             </form>
-            <div className="flex space-x-4 mt-6">
-              <SocialIcon Icon={Facebook} />
-              <SocialIcon Icon={Twitter} />
-              <SocialIcon Icon={Instagram} />
-              <SocialIcon Icon={Youtube} />
-            </div>
-          </motion.div>
+          </div>
         </div>
-
-        <motion.div
-          className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} aktive. All Rights Reserved.
-          </p>
-          <div className="flex space-x-4">
-  {['Visa', 'Mastercard', 'PayPal', 'Apple Pay', 'Google Pay'].map((payment) => {
-    const paymentSrc = `/placeholder.svg?height=30&width=50&text=${payment}`; // Create the source URL
-    return (
-      <motion.img
-        key={payment}
-        src={paymentSrc} // Use the constructed URL
-        className="h-8"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        alt={payment} // Add an alt attribute for accessibility
-      />
-    );
-  })}
-</div>
-
-        </motion.div>
+        <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-gray-600">&copy; 2024 Your Company Name. All rights reserved.</p>
+          <div className="flex space-x-4 mt-4 md:mt-0">
+            <SocialButton href="https://facebook.com" icon={Facebook} />
+            <SocialButton href="https://twitter.com" icon={Twitter} />
+            <SocialButton href="https://instagram.com" icon={Instagram} />
+            <SocialButton href="https://linkedin.com" icon={Linkedin} />
+            <SocialButton href="https://github.com" icon={Github} />
+          </div>
+        </div>
       </div>
     </footer>
-  );
-};
-
-export default EnhancedFooter;
+  )
+}

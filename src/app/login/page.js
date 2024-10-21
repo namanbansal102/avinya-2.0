@@ -44,9 +44,9 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false)
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br  p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white shadow-2xl rounded-3xl px-8 pt-10 pb-8 mb-4 transform transition-all duration-500 ease-in-out hover:scale-105">
+    <div className="min-h-screen relative    flex items-center justify-center bg-gradient-to-br  p-4">
+      <div className="w-full max-w-md ">
+        <div className="bg-white shadow-2xl rounded-3xl px-8 pt-10 pb-8 mb-4 transform transition-all duration-500 ease-in-out hover:scale-105  mt-24">
           <div className="mb-8 text-center">
             <div className="inline-block w-20 h-20 bg-gradient-to-br from-red-400 to-pink-500 rounded-full p-2 transform transition-transform duration-500 ease-in-out hover:rotate-180">
               <div className="w-full h-full bg-white rounded-full flex items-center justify-center">

@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { Apple, Twitter } from 'lucide-react'
-
+import toast from 'react-hot-toast'
+import { signIn,useSession } from "next-auth/react";
 const CustomInput = ({ id, type, placeholder, value, onChange, className }) => (
   <input
     id={id}
@@ -13,6 +14,26 @@ const CustomInput = ({ id, type, placeholder, value, onChange, className }) => (
     className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300 ${className}`}
   />
 )
+const handleVerify=async (email,password)=>{
+    console.log("handle Verify is Running");
+    try{
+        if (true){
+            const res=await signIn("credentials",{
+          email,
+          password,
+          callbackUrl:'/'
+        })
+        console.log("My Response is::::",res);
+        
+         
+      }
+    }catch(e){
+      console.log("Getting Error On Client Side",e);
+      // router.replace('/signUp')
+}    
+}
+
+
 
 const CustomButton = ({ onClick, className, children }) => (
   <button
@@ -138,7 +159,7 @@ export default function LoginPage() {
             <div>
               <CustomButton
                 className="text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 focus:ring-indigo-500 transform hover:scale-105"
-                onClick={() => {}}
+                onClick={() => {handleVerify(email,password)}}
               >
                 Sign in
               </CustomButton>

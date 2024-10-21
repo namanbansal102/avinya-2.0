@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const connectDb=async()=>{
     try{
 
-        await mongoose.connect(`mongodb+srv://osc-chitkara:K9nQgWP-iz63vSR@atlascluster.erhic.mongodb.net/OSC`,{
+        await mongoose.connect(`mongodb://localhost:27017/myteam`,{
             
         })
         console.log("Mongo DB Connected");

@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { Apple, Twitter } from 'lucide-react'
-
+import toast from 'react-hot-toast'
+import { signIn,useSession } from "next-auth/react";
 const CustomInput = ({ id, type, placeholder, value, onChange, className }) => (
   <input
     id={id}
@@ -13,7 +14,40 @@ const CustomInput = ({ id, type, placeholder, value, onChange, className }) => (
     className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300 ${className}`}
   />
 )
-
+const handleVerify=async (firstName,lastName,email,password)=>{
+  console.log("handle Verify is Running");
+  let data={firstName,lastName,email,password};
+  console.log(data);
+  
+  try{
+    let response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signUp`, {
+      method: 'POST', // Specify the request method
+      headers: {
+          'Content-Type': 'application/json', // Set content type
+      },
+      body: JSON.stringify(data), // Convert data to JSON
+  });
+  response=await response.json();
+  console.log("My Response is:::::::",response);
+  
+      if (response.success){
+          const res=await signIn("credentials",{
+        email,
+        password,
+        callbackUrl:'/'
+      })
+      console.log("My Response is::::",res);
+    }
+    else{
+      toast.error("Already Exist a Account")
+      console.log("Already Exist a Account");
+      
+    }
+  }catch(e){
+    console.log("Getting Error On Client Side",e);
+    router.replace('/signUp')
+}    
+}
 const CustomButton = ({ onClick, className, children }) => (
   <button
     onClick={onClick}
@@ -40,6 +74,8 @@ const CustomCheckbox = ({ id, checked, onChange, label }) => (
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
 
@@ -105,7 +141,7 @@ export default function LoginPage() {
                   id="first-name"
                   type="text"
                   placeholder="John"
-                  
+                  value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="mt-1 animate-pulse-subtle"
                 />
@@ -118,7 +154,7 @@ export default function LoginPage() {
                   id="last-name"
                   type="text"
                   placeholder="Doe"
-                
+                  value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className="mt-1 animate-pulse-subtle"
                 />
@@ -166,7 +202,7 @@ export default function LoginPage() {
             <div>
               <CustomButton
                 className="text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 focus:ring-indigo-500 transform hover:scale-105"
-                onClick={() => {}}
+                onClick={() => {handleVerify(firstName,lastName,email,password)}}
               >
                 Create Account
               </CustomButton>

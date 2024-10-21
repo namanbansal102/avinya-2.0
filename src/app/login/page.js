@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Apple, Twitter } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { signIn,useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 const CustomInput = ({ id, type, placeholder, value, onChange, className }) => (
   <input
     id={id}
@@ -63,6 +64,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  let router=useRouter()
+  const { data, status } = useSession();
+  if(status=='authenticated'){
+    router.replace('/')
+  }
 
   return (
     <div className="min-h-screen relative    flex items-center justify-center bg-gradient-to-br  p-4">
@@ -168,7 +174,7 @@ export default function LoginPage() {
           <div className="mt-6 text-center animate-fade-in">
             <p className="text-sm text-gray-600">
               Don't have an account yet?{' '}
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-300">
+              <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-300">
                 Sign Up
               </a>
             </p>

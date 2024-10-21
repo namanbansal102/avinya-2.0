@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import NextTopLoader from 'nextjs-toploader';
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import { AuthProvider } from "./components/Provider2";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,6 +29,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <AuthProvider>
+
         <Navbar></Navbar>
          <NextTopLoader
   color="#D32F2F"
@@ -56,6 +59,7 @@ export default function RootLayout({ children }) {
         {children}
         <Footer></Footer>
         </Providers>
+  </AuthProvider>
       </body>
     </html>
   );

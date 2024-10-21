@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
-
+import { signOut, useSession } from "next-auth/react";
+import Link from 'next/link';
 const NavLink = ({ href, children }) => (
   <a
     href={href}
@@ -14,6 +15,11 @@ const NavLink = ({ href, children }) => (
 )
 
 export default function Navbar() {
+  const { data, status } = useSession();
+  console.log("My STatus is:::::::::", status);
+  console.log("My STatus is:::::::::", data);
+
+
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -81,12 +87,16 @@ export default function Navbar() {
                 </svg>
               </button>
             </form>
-            <a
-              href="/login"
-              className="px-4 py-2 border-2 border-pink-500 text-pink-500 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-pink-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-            >
-              Login
-            </a>
+            {status == 'authenticated' &&
+
+              <button onClick={() => { signOut() }}  className="block w-full text-center px-4 py-2 border-2 border-pink-500 text-pink-500 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-pink-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">Log Out</button>
+            }
+            {status == 'unauthenticated' &&
+
+              <Link href={'/login'}>
+                <button  className="block w-full text-center px-4 py-2 border-2 border-pink-500 text-pink-500 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-pink-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">Login In</button>
+              </Link>
+            }
           </div>
           <div className="md:hidden flex items-center">
             <button

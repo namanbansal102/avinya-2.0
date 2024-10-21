@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Apple, Twitter } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { signIn,useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 const CustomInput = ({ id, type, placeholder, value, onChange, className }) => (
   <input
     id={id}
@@ -18,6 +19,7 @@ const handleVerify=async (firstName,lastName,email,password)=>{
   console.log("handle Verify is Running");
   let data={firstName,lastName,email,password};
   console.log(data);
+  
   
   try{
     let response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signUp`, {
@@ -78,6 +80,11 @@ export default function LoginPage() {
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  let router=useRouter()
+  const { data, status } = useSession();
+  if(status=='authenticated'){
+    router.replace('/')
+  }
 
   return (
     <div className="min-h-screen relative    flex items-center justify-center bg-gradient-to-br  p-4">

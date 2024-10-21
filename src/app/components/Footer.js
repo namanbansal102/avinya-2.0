@@ -44,7 +44,7 @@ const EnhancedFooter = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-2xl font-bold mb-4">aktive</h2>
+            <h2 className="text-2xl font-bold ">aktive</h2>
             <p className="text-gray-400">Empowering your active lifestyle with premium gear and apparel.</p>
           </motion.div>
 

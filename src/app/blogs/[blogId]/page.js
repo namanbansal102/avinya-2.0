@@ -193,8 +193,8 @@ export default function BlogPage({ params }) {
                         className="mt-2"
                         variant="ghost"
                       >
-                        <Edit2 className="w-4 h-4 mr-2" />
-                        Edit
+                       
+                     
                       </Button>
                     )}
                   </div>
@@ -213,7 +213,7 @@ export default function BlogPage({ params }) {
                       onClick={handleAddComment}
                       className="mt-2"
                     >
-                      <Send className="w-4 h-4 mr-2" />
+                      
                       Post Comment
                     </Button>
                   </div>

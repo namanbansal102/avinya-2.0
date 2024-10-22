@@ -47,7 +47,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2">
               <li><FooterLink href="/">Home</FooterLink></li>
-              <li><FooterLink href="/products">Products</FooterLink></li>
+              <li><FooterLink href="/blogs">Blogs</FooterLink></li>
               <li><FooterLink href="/about">About</FooterLink></li>
               <li><FooterLink href="/contact">Contact</FooterLink></li>
             </ul>

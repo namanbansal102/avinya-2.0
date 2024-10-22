@@ -1,27 +1,59 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Bell, Home, Bookmark, MessageSquare, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
-export default function BlogPage() {
+export default function BlogPage(slug) {
   const [isHovered, setIsHovered] = useState(false)
+  const [data, setData] = useState([]);
+  const router = useRouter();
+  console.log("My Slug is::::::",slug['params']);
+  useEffect(() => {
+    
+    const fetchData = async () => {
+     await fetch("http://localhost:3000/api/fetchBlog", {
+        // Adding method type
+        method: "POST",
+        // Adding body or contents to send
+        body: JSON.stringify({
+            "blogCode":slug['params'].blogId
+        }),
+        
+        // Adding headers to the request
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    
+    // Converting to JSON
+    .then(response => response.json())
+    
+    // Displaying results to console
+    .then(json => {
+      console.log(json.data);
+      
+      setData(json.data)
+    });
+    };
+    fetchData();
+  }, []); // Add an empty dependency array
+  console.log("my Data is::::",data);
   return (
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 py-8">
-       
-
         <main className="bg-white rounded-lg shadow-2xl overflow-hidden">
           <div className="md:flex">
             <div className="md:w-2/3 p-8">
               <div className="flex items-center mb-6">
                 <img
-                  src="/placeholder.svg?height=50&width=50"
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                   alt="Author"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold">Maria Lawrence</h2>
+                  <h2 className="text-xl font-semibold">{data.authorName}</h2>
                   <p className="text-gray-500">UX Designer • 5min read</p>
                 </div>
               </div>
@@ -31,10 +63,10 @@ export default function BlogPage() {
                 transition={{ duration: 0.5 }}
                 className="text-4xl font-bold mb-6"
               >
-                UX Mapping Methods: Visual-Design Guide
+                {data.title}
               </motion.h1>
               <motion.img
-                src="/placeholder.svg?height=400&width=800"
+                src={data.image}
                 alt="UX Mapping"
                 className="w-full h-64 object-cover mb-6 rounded-lg"
                 whileHover={{ scale: 1.05 }}
@@ -46,9 +78,7 @@ export default function BlogPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-gray-700 leading-relaxed mb-6"
               >
-                UX visualizations (commonly referred to as UX mapping methods) are artifacts that describe various
-                aspects of a product or service's user experience. These include user flows, journey mappings,
-                empathy maps, customer journey maps, service blueprints, and roadmaps, to name a few.
+               {data.summary}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -80,7 +110,7 @@ export default function BlogPage() {
                       className="flex items-center space-x-4 p-2 rounded-lg cursor-pointer transition-colors duration-300"
                     >
                       <img
-                        src="/placeholder.svg?height=60&width=60"
+                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                         alt={`Suggested article ${item}`}
                         className="w-16 h-16 object-cover rounded"
                       />

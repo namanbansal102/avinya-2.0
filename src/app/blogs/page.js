@@ -1,6 +1,7 @@
 "use client"; // Add this line for client-side rendering
 import React, { useEffect, useState } from 'react';
 import BlogCard from '../components/BlogCard';
+import Link from 'next/link';
 
 const page = () => {
   const [data, setData] = useState([]);
@@ -21,9 +22,12 @@ const page = () => {
       <center>
         <h1 className='py-3 text-3xl  '>Our Blogs</h1>
       </center>
+
       <div className='grid grid-cols-3 gap-y-[10vh]'>
-        {data.map(({_id,image,travelType,authorName,summary,title}) => (
-          <BlogCard key={_id} props={{image,travelType,authorName,summary,title}} /> // Pass blog data as a prop
+        {data.map(({_id,blogCode,image,travelType,authorName,summary,title}) => (
+          <Link href={`/blogs/${blogCode}`}>
+          <BlogCard key={_id} props={{image,travelType,authorName,summary,title}} /> 
+          </Link>
         ))}
       </div>
     </div>

@@ -1,22 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Calendar } from 'lucide-react'
+import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react'
+import Link from 'next/link'
+import BlogCard from './components/BlogCard'
 
 export default function AnimatedBlogCard() {
   const [isHovered, setIsHovered] = useState(false)
+  const [data, setData] = useState([]);
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:3000/api/viewBlog");
+      const result = await res.json();
+      setData(result.data);
+    };
+    fetchData();
+  }, []); // Add an empty dependency array
 
   return (
     <div className='p-24'>
       <div className="relative h-64 w-full ">
-        <Image
-          src="/placeholder.svg?height=400&width=600"
+        <img
+          src="https://plus.unsplash.com/premium_photo-1692386759833-3acf660742ad?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aGltYWxheWF8ZW58MHx8MHx8fDA%3D"
           alt="Person working on laptop in office hallway"
           layout="fill"
           objectFit="cover"
-          className="transition-transform duration-500 ease-in-out"
+          className="transition-transform duration-500 ease-in-out h-56"
           style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
@@ -36,8 +50,8 @@ export default function AnimatedBlogCard() {
             The Impact of Technology on the Workplace: How Technology is Changing
           </h2>
           <div className="flex items-center">
-            <Image
-              src="/placeholder.svg?height=40&width=40"
+            <img
+              src="sds"
               alt="Jason Francisco"
               width={40}
               height={40}
@@ -70,6 +84,58 @@ export default function AnimatedBlogCard() {
           Read More
         </motion.button>
       </motion.div>
+      <div className='p-24'>
+      <center>
+        <h1 className='py-3 text-3xl  '>Our Blogs</h1>
+      </center>
+
+      <div className='grid grid-cols-3 gap-y-[10vh] gap-x-16'>
+        {data.map(({_id,blogCode,image,travelType,authorName,summary,title}) => (
+          <Link href={`/blogs/${blogCode}`}>
+          <BlogCard key={_id} props={{image,travelType,authorName,summary,title}} /> 
+          </Link>
+        ))}
+      </div>
+    </div>
+      <section className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto text-center">
+        <div className="flex flex-col items-center">
+          <img
+            src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+            alt="Jonathan Doe"
+            width={100}
+            height={100}
+            className="rounded-full"
+          />
+          <h2 className="mt-4 text-2xl font-bold text-gray-900">Jonathan Doe</h2>
+          <p className="text-gray-600">Collaborator & Editor</p>
+        </div>
+        <p className="mt-6 text-lg text-gray-700">
+          Meet Jonathan Doe, a passionate writer and blogger with a love for
+          technology and travel. Jonathan holds a degree in Computer Science and
+          has spent years working in the tech industry, gaining a deep understanding
+          of the impact technology has on our lives.
+        </p>
+        <div className="mt-8 flex justify-center space-x-6">
+          <a href="#" className="text-gray-600 hover:text-gray-900">
+            <span className="sr-only">Facebook</span>
+            <Facebook className="h-6 w-6" />
+          </a>
+          <a href="#" className="text-gray-600 hover:text-gray-900">
+            <span className="sr-only">Twitter</span>
+            <Twitter className="h-6 w-6" />
+          </a>
+          <a href="#" className="text-gray-600 hover:text-gray-900">
+            <span className="sr-only">Instagram</span>
+            <Instagram className="h-6 w-6" />
+          </a>
+          <a href="#" className="text-gray-600 hover:text-gray-900">
+            <span className="sr-only">YouTube</span>
+            <Youtube className="h-6 w-6" />
+          </a>
+        </div>
+      </div>
+    </section>
     
     </div>
   )

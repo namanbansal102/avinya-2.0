@@ -53,7 +53,7 @@ export default function Navbar() {
             <div className="hidden md:block ml-10">
               <div className="flex items-baseline space-x-4">
                 <NavLink href="/">Home</NavLink>
-                <NavLink href="/products">Products</NavLink>
+                <NavLink href="/blogs">Blogs</NavLink>
                 <div className="relative group">
                   <button className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 flex items-center">
                     Categories

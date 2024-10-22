@@ -26,7 +26,7 @@ export default function AnimatedBlogCard() {
     <div className='p-24'>
       <div className="relative h-64 w-full ">
         <img
-          src="https://plus.unsplash.com/premium_photo-1692386759833-3acf660742ad?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aGltYWxheWF8ZW58MHx8MHx8fDA%3D"
+          src="https://media.gettyimages.com/id/482857481/photo/magnificent-mountain-panorama-snowy-peaks-high-above-clouds-himalayas-nepal.jpg?s=612x612&w=0&k=20&c=WP2O1lcsAVzlCAXkh76Qav09gvapYp3ajq5jBm6qhCU="
           alt="Person working on laptop in office hallway"
           layout="fill"
           objectFit="cover"
@@ -51,7 +51,7 @@ export default function AnimatedBlogCard() {
           </h2>
           <div className="flex items-center">
             <img
-              src="sds"
+              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
               alt="Jason Francisco"
               width={40}
               height={40}
@@ -89,7 +89,7 @@ export default function AnimatedBlogCard() {
         <h1 className='py-3 text-3xl  '>Our Blogs</h1>
       </center>
 
-      <div className='grid grid-cols-3 gap-y-[10vh] gap-x-16'>
+      <div className='grid grid-cols-3 gap-y-[10vh] gap-x-16 max-sm:grid-cols-1'>
         {data.map(({_id,blogCode,image,travelType,authorName,summary,title}) => (
           <Link href={`/blogs/${blogCode}`}>
           <BlogCard key={_id} props={{image,travelType,authorName,summary,title}} /> 

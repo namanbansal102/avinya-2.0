@@ -23,7 +23,7 @@ const page = () => {
         <h1 className='py-3 text-3xl  '>Our Blogs</h1>
       </center>
 
-      <div className='grid grid-cols-3 gap-y-[10vh]'>
+      <div className='grid grid-cols-3 gap-y-[10vh] max-sm:grid-cols-1'>
         {data.map(({_id,blogCode,image,travelType,authorName,summary,title}) => (
           <Link href={`/blogs/${blogCode}`}>
           <BlogCard key={_id} props={{image,travelType,authorName,summary,title}} /> 
